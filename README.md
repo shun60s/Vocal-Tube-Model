@@ -4,7 +4,7 @@ draw frequency response and cross-sectional view (area) of a very simple vocal t
 
 ## content    
 
-simple tow tube model feature  
+simple two tube model feature  
 ```
 python main1.py
 ```
