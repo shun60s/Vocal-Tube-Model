@@ -1,8 +1,8 @@
-#vocal tract two tube model  
+# vocal tract two tube model    
 
 draw frequency response and cross-sectional view (area) of a very simple vocal tract model, two tube model.  
 
-##content  
+## content    
 
 simple tow tube model feature  
 ```
@@ -14,5 +14,5 @@ include HPF as mouth radiation effect
 python main2.py
 ```
 
-##License  
+## License    
 MIT  
