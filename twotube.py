@@ -1,7 +1,7 @@
 #coding:utf-8
 
 #
-# Speech Two Tube Model, A python Class to calculate frequecny response
+# Vocal tract Two Tube Model, A python Class to calculate frequecny response
 #
 
 import numpy as np
