@@ -1,7 +1,7 @@
 #coding:utf-8
 
 #
-#  two tube model, draw frequency response and cross-sectional view (area)
+# two tube model, draw frequency response and cross-sectional view (area)
 #
 
 import numpy as np

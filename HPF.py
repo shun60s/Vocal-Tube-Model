@@ -14,15 +14,42 @@ from matplotlib import pyplot as plt
 
 
 class Class_HPF(object):
-	def __init__(self, fc=1000):
+	def __init__(self, fc=1000, sampling_rate=48000):
 		# initalize
 		self.fc= fc # cut off frequency of High Pass Filter by unit is [Hz]
-
+		self.sr= sampling_rate
+		self.a, self.b = self.hpf1()
+		
+	def hpf1(self,):
+		# primary digital filter
+		a= np.ones(2)
+		b= np.ones(2)
+		wc= 2.0 * np.pi * self.fc / self.sr
+		g0= np.tan( wc/2.0)
+		a[1]= (g0 - 1.0) / ( g0 + 1.0)
+		b[0]= 1.0 / (1.0 + g0)
+		b[1]= -1.0 * b[0]
+		return  a,b
+		
+	def iir1(self,x):
+		# calculate iir filter: x is input, y is output
+		# y[0]= b[0] * x[0]  + b[1] * x[-1]
+		# y[0]= y[0] - a[1] * y[-1]
+		y= np.zeros(len(x))
+		for n in range(len(x)):
+			for i in range(len(self.b)):
+				if n - i >= 0:
+					y[n] += self.b[i] * x[n - i]
+			for j in range(1, len(self.a)):
+				if n - j >= 0:
+					y[n] -= self.a[j] * y[n - j]
+		return y
 		
 	def fone(self, xw):
 		# calculate one point of frequecny response
-		yi= 1.0 + (self.fc / xw) * 1.0j
-		yb= 1.0 + pow( (self.fc / xw), 2)
+		f= xw / self.sr
+		yi= self.b[0] + self.b[1] * np.exp(-2j * np.pi * f)
+		yb= self.a[0] + self.a[1] * np.exp(-2j * np.pi * f)
 		val= yi/yb
 		return np.sqrt(val.real ** 2 + val.imag ** 2)
 
@@ -40,7 +67,7 @@ class Class_HPF(object):
 			bands[i]= bands[i-1] * delta1
 			#print ("i,band =", i, bands[i]) 
 		for f in bands:
-			amp.append(self.fone(f * 2.0 * np.pi))
+			amp.append(self.fone(f))
 		return   np.log10(amp) * 20, bands # = amp value, freq list
 
 

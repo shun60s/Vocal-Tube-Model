@@ -1,13 +1,14 @@
 #coding:utf-8
 
 #
-#  two tube model, draw frequency response, considering mouth radiation
+# two tube model, draw frequency response and waveform, considering glottal voice source and mouth radiation
 #
 
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.patches as patches
 from twotube import *
+from glottal import *
 from HPF import *
 
 # Check version
@@ -16,13 +17,25 @@ from HPF import *
 #  matplotlib  2.1.1
 
 
-def plot_freq_res(twotube,label, hpf ):
+def plot_freq_res(twotube, label, glo, hpf):
 	plt.xlabel('Hz')
 	plt.ylabel('dB')
 	plt.title(label)
+	amp0, freq=glo.H0(freq_high=5000, Band_num=256)
 	amp1, freq=twotube.H0(freq_high=5000, Band_num=256)
 	amp2, freq=hpf.H0(freq_high=5000, Band_num=256)
-	plt.plot(freq, (amp1+amp2))
+	plt.plot(freq, (amp0+amp1+amp2))
+
+
+def plot_waveform(twotube, label, glo, hpf):
+	yg_repeat=glo.make_N_repeat(repeat_num=3) # input source of two tube model
+	y2tm=twotube.process(yg_repeat)
+	yout=hpf.iir1(y2tm)
+	plt.xlabel('mSec')
+	plt.ylabel('level')
+	plt.title('Waveform')
+	plt.plot( (np.arange(len(yout)) * 1000.0 / glo.sr) , yout)
+
 
 
 if __name__ == '__main__':
@@ -56,24 +69,33 @@ if __name__ == '__main__':
 	twotube_i  =  Class_TwoTube(L1_i,L2_i,A1_i,A2_i)
 	twotube_u  =  Class_TwoTube(L1_u,L2_u,A1_u,A2_u)
 	
-	hpf=Class_HPF() # for mouth radiation effect
-	
+	glo=Class_Glottal()   # instance as glottal voice source
+	hpf=Class_HPF()       # instance for mouth radiation effect
 	
 	# draw
 	fig = plt.figure()
 	
 	# /a/
-	plt.subplot(4,1,1)
-	plot_freq_res(twotube_a, '/a/', hpf)
+	plt.subplot(4,2,1)
+	plot_freq_res(twotube_a, '/a/', glo, hpf)
+	plt.subplot(4,2,2)
+	plot_waveform(twotube_a, '/a/', glo, hpf)
+	
 	# /ae/
-	plt.subplot(4,1,2)
-	plot_freq_res(twotube_ae, '/ae/', hpf)
+	plt.subplot(4,2,3)
+	plot_freq_res(twotube_ae, '/ae/', glo, hpf)
+	plt.subplot(4,2,4)
+	plot_waveform(twotube_ae, '/ae/', glo, hpf)
 	# /i/
-	plt.subplot(4,1,3)
-	plot_freq_res(twotube_i, '/i/', hpf)
+	plt.subplot(4,2,5)
+	plot_freq_res(twotube_i, '/i/', glo, hpf)
+	plt.subplot(4,2,6)
+	plot_waveform(twotube_i, '/i/', glo, hpf)
 	# /u/
-	plt.subplot(4,1,4)
-	plot_freq_res(twotube_u, '/u/', hpf)
+	plt.subplot(4,2,7)
+	plot_freq_res(twotube_u, '/u/', glo, hpf)
+	plt.subplot(4,2,8)
+	plot_waveform(twotube_u, '/u/', glo, hpf)
 	
 	#
 	fig.tight_layout()

@@ -1,7 +1,7 @@
 #coding:utf-8
 
 #
-# Vocal tract Two Tube Model, A python Class to calculate frequecny response
+# Two Tube Model, A python Class to calculate frequecny response and procee reflection transmission of resonance tube
 #
 
 import numpy as np
@@ -14,13 +14,14 @@ from matplotlib import pyplot as plt
 
 
 class Class_TwoTube(object):
-	def __init__(self, L1, L2, A1, A2, rg0=0.95, rl0=0.9):
+	def __init__(self, L1, L2, A1, A2, rg0=0.95, rl0=0.9 ,sampling_rate=48000):
 		# initalize Tube length and Tube area
 		self.L1= L1 # set list of 1st tube's length by unit is [cm]
 		self.L2= L2 # set list of 1st tube's area by unit is [cm^2]
 		self.A1= A1 # set list of 2nd tube's length by unit is [cm]
 		self.A2= A2 # set list of 2nd tube's area by unit is [cm^2]
 		C0=35000.0  # speed of sound in air, round 35000 cm/second
+		self.sr= sampling_rate
 		self.tu1=self.L1 / C0   # delay time in 1st tube
 		self.tu2=self.L2 / C0   # delay time in 2nd tube
 		self.r1=( self.A2 - self.A1) / ( self.A2 + self.A1)  # reflection coefficient between 1st tube and 2nd tube
@@ -54,8 +55,49 @@ class Class_TwoTube(object):
 			amp.append(self.fone(f * 2.0 * np.pi))
 		return   np.log10(amp) * 20, bands # = amp value, freq list
 
+	def process(self, yg ):
+		# process reflection transmission of resonance tube: yg is input, y2tm is output
+		# two serial resonance tube
+		#                      ---------------------
+		#                      |                    |
+		#   -------------------                     |
+		#   |                                       |
+		#   |                                       |
+		#   -------------------                     |
+		#                      |                    |
+		#                      ---------------------
+		# reflection ratio
+		#   rg                 r1                   rl0
+		#   ya1---(forward)--->   yb1---(forward)--->
+		#   <-----(backward)--ya2  <---(backward)---yb2
+		# input yg                                 output y2tm
+		# 
+		#
+		M1= round( self.tu1 * self.sr ) + 1  # for precision, higher sampling_rate is better
+		M2= round( self.tu2 * self.sr ) + 1  # for precision, higher sampling_rate is better
+		M1= int(M1)
+		M2= int(M2)
+		ya1=np.zeros(M1)
+		ya2=np.zeros(M1)
+		yb1=np.zeros(M2)
+		yb2=np.zeros(M2)
+		y2tm=np.zeros(len(yg))
+		
+		for tc0 in range(len(yg)):
+			for i in range((M1-1),0,-1): # process one step
+				ya1[i]=ya1[i-1]
+				ya2[i]=ya2[i-1]
+			for i in range((M2-1),0,-1): # process one step
+				yb1[i]=yb1[i-1]
+				yb2[i]=yb2[i-1]			
+			# calculate reflection
+			ya1[0]= ((1. + self.rg0 ) / 2.) * yg[tc0] + self.rg0 * ya2[-1]
+			ya2[0]= -1. * self.r1 *  ya1[-1]  +  ( 1. - self.r1 ) * yb2[-1]
+			yb1[0]= ( 1 + self.r1 ) * ya1[-1] + self.r1 * yb2[-1]
+			yb2[0]=  -1. * self.rl0  * yb1[-1]
+			y2tm[tc0]= (1 + self.rl0) * yb1[-1]
 
-
+		return y2tm
 
 if __name__ == '__main__':
 	
