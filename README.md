@@ -1,7 +1,8 @@
 # vocal tract two tube model    
 
 A python, draw frequency response and cross-sectional view (area) of a very simple vocal tract model, two tube model.  
-
+![sentence](figures/sentence1s.png)  
+  
 [github repository](https://github.com/shun60s/Vocal-Tube-Model)  
 
 ## content    
