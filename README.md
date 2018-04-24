@@ -15,7 +15,7 @@ python main1.py
 
   
 
-draw frequency response and waveform, considering glottal voice source and mouth radiation  
+draw frequency response and generated waveform, considering glottal voice source and mouth radiation  
 ```
 python main2.py
 ```
