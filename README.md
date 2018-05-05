@@ -40,7 +40,7 @@ python HPF.py
 See Explain-E.pdf/Explain-J.pdf in the docs folder  
   
   
-## Reference    
+## Related link      
 
 estimation two tube model parameters from formant  
 [github repository](https://github.com/shun60s/Formant2TubeModel)  
