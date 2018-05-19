@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vocal tract two tube model    </title>
+<meta name="description" content="A python, draw frequency response and cross-sectional view (area) of a very simple vocal tract model, two tube model." />
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-lg px-3 my-5 markdown-body">
+<h1>vocal tract two tube model    </h1>
+
+<p>A python, draw frequency response and cross-sectional view (area) of a very simple vocal tract model, two tube model.<br />
+<img src="../figures/sentence1s.png" alt="sentence" ><br /></p>
+
+<p><a href="https://github.com/shun60s/Vocal-Tube-Model">github repository</a><br /></p>
+
+<h2>content    </h2>
+
+<p>draw vocal two tube model frequency response and cross-sectional view (area)<br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+python main1.py
+</code></pre></div></div>
+<p><img src="../figures/freq_resp_vocal_two_tube_model.png" alt="figure1" ><br /></p>
+
+
+
+<p>draw frequency response and generated waveform, considering glottal voice source and mouth radiation<br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+python main2.py
+</code></pre></div></div>
+<p><img src="../figures/freq_resp_vocal_two_tube_model_with_source_mouth_effect.png" alt="figure2" ><br /></p>
+
+
+<p>draw waveform of glottal voice source<br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+python glottal.py
+</code></pre></div></div>
+<p><img src="../figures/glottal_waveform.png" alt="figure3" ><br /></p>
+
+
+
+<p>draw frequency response of HPF for simulate mouth radiation<br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+python HPF.py
+</code></pre></div></div>
+
+<h2>Document  </h2>
+
+<p>See <a href="./Explain-E.pdf">Explain-E.pdf</a> or <a href="./Explain-J.pdf">Explain-J.pdf</a> in the docs folder<br /></p>
+
+
+<h2>Related link      </h2>
+
+<p>estimation two tube model parameters from formant<br />
+<a href="https://github.com/shun60s/Formant2TubeModel">github repository</a><br /></p>
+
+
+<h2>License    </h2>
+<p>MIT<br /></p>
+</div>
+</body>
+</html>
