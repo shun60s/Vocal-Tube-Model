@@ -37,7 +37,7 @@ python HPF.py
 
 ## Document  
 
-See Explain-E.pdf/Explain-J.pdf in the docs folder  
+See [Explain-E.pdf](docs/Explain-E.pdf) / [Explain-J.pdf](docs/Explain-J.pdf) in the docs folder  
   
   
 ## Related link      
