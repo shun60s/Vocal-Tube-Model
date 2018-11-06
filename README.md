@@ -1,13 +1,13 @@
-# vocal tract two tube model    
-
-A python, draw frequency response and cross-sectional view (area) of a very simple vocal tract model, two tube model.  
-![sentence](figures/sentence1s.png)  
+# vocal tract tube model   
+   
+a very simple model vocal tract, few tube model. generate vowel sound by it.  
+A python, draw frequency response and cross-sectional view (area) of a very simple vocal tract model, two tube model and three tube model.  
   
 [github repository](https://github.com/shun60s/Vocal-Tube-Model)  
 
 ## content    
 
-draw vocal two tube model frequency response and cross-sectional view (area)  
+draw two tube model frequency response and cross-sectional view (area)  
 ```
 python main1.py
 ```
@@ -15,18 +15,29 @@ python main1.py
 
   
 
-draw frequency response and generated waveform, considering glottal voice source and mouth radiation  
+draw two tube model frequency response and generated waveform, considering glottal voice source and mouth radiation  
+save generated waveform as a wav file  
 ```
 python main2.py
 ```
 ![figure2](figures/freq_resp_vocal_two_tube_model_with_source_mouth_effect.png)  
 
   
+
+draw three tube model frequency response and generated waveform, considering glottal voice source and mouth radiation, and cross-sectional view (area)  
+save generated waveform as a wav file  
+```
+python main3.py
+```
+![figure3](figures/freq_resp_vocal_three_tube_model_with_source_mouth_effect.png)  
+
+  
+
 draw waveform of glottal voice source  
 ```
 python glottal.py
 ```
-![figure3](figures/glottal_waveform.png)  
+![figure4](figures/glottal_waveform.png)  
 
   
 
@@ -34,6 +45,11 @@ draw frequency response of HPF for simulate mouth radiation
 ```
 python HPF.py
 ```
+![figure5](figures/freq_resp_HPF.png)  
+
+## Genarated sample  
+
+There are sample wav files of generated waveform in the generated_waveform folder  
 
 ## Document  
 

@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>vocal tract two tube model    </title>
+<title>vocal tract tube model    </title>
 <meta name="description" content="A python, draw frequency response and cross-sectional view (area) of a very simple vocal tract model, two tube model." />
 <link href="style.css" rel="stylesheet">
 </head>
 <body>
 <div class="container-lg px-3 my-5 markdown-body">
-<h1>vocal tract two tube model    </h1>
+<h1>vocal tract tube model    </h1>
 
-<p>A python, draw frequency response and cross-sectional view (area) of a very simple vocal tract model, two tube model.<br />
-<img src="../figures/sentence1s.png" alt="sentence" ><br /></p>
+<p>a very simple model vocal tract, few tube model. generate vowel sound by it.<br /></p> 
+<p>A python, draw frequency response and cross-sectional view (area) of a very simple vocal tract model, two tube model and three tube model.<br />
+</p>
 
 <p><a href="https://github.com/shun60s/Vocal-Tube-Model">github repository</a><br /></p>
 
@@ -26,18 +27,27 @@ python main1.py
 
 
 
-<p>draw frequency response and generated waveform, considering glottal voice source and mouth radiation<br /></p>
+<p>draw two tube model frequency response and generated waveform, considering glottal voice source and mouth radiation<br />
+save generated waveform as a wav file<br /></p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 python main2.py
 </code></pre></div></div>
 <p><img src="../figures/freq_resp_vocal_two_tube_model_with_source_mouth_effect.png" alt="figure2" ><br /></p>
 
 
+<p>draw three tube modelfrequency response and generated waveform, considering glottal voice source and mouth radiation, and cross-sectional view (area)<br />
+save generated waveform as a wav file<br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+python main3.py
+</code></pre></div></div>
+<p><img src="../figures/freq_resp_vocal_three_tube_model_with_source_mouth_effect.png" alt="figure3" ><br /></p>
+
+
 <p>draw waveform of glottal voice source<br /></p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 python glottal.py
 </code></pre></div></div>
-<p><img src="../figures/glottal_waveform.png" alt="figure3" ><br /></p>
+<p><img src="../figures/glottal_waveform.png" alt="figure4" ><br /></p>
 
 
 
@@ -45,6 +55,13 @@ python glottal.py
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 python HPF.py
 </code></pre></div></div>
+<p><img src="../figures/freq_resp_HPF.png" alt="figure5" ><br /></p>
+
+<h2>Genarated waveform  </h2>
+
+
+<p>There are sample wav files of generated waveform in the generated_waveform folder.<br /></p>
+
 
 <h2>Document  </h2>
 

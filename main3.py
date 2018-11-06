@@ -1,14 +1,16 @@
 #coding:utf-8
 
 #
-# two tube model, draw frequency response and waveform, considering glottal voice source and mouth radiation
-#                 save generated waveform as a wav file
+# three tube model, draw frequency response and waveform, considering glottal voice source and mouth radiation
+#                   save generated waveform as a wav file
+#                   and,
+#                   draw cross-sectional view (area)
 
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.patches as patches
 from scipy.io.wavfile import write as wavwrite
-from twotube import *
+from threetube import *
 from glottal import *
 from HPF import *
 
@@ -30,7 +32,7 @@ def plot_freq_res(twotube, label, glo, hpf):
 
 def plot_waveform(twotube, label, glo, hpf):
 	# you can get longer input source to set bigger repeat_num 
-	yg_repeat=glo.make_N_repeat(repeat_num=5) # input source of two tube model
+	yg_repeat=glo.make_N_repeat(repeat_num=5) # input source of three tube model
 	y2tm=twotube.process(yg_repeat)
 	yout=hpf.iir1(y2tm)
 	plt.xlabel('mSec')
@@ -43,6 +45,13 @@ def save_wav( yout, wav_path, sampling_rate=48000):
 	wavwrite( wav_path, sampling_rate, ( yout * 2 ** 15).astype(np.int16))
 	print ('save ', wav_path) 
 
+def add_draw_patch(ax1, threetube):
+	ax1.add_patch( patches.Rectangle((0, -0.5* threetube.A1), threetube.L1, threetube.A1, hatch='/', fill=False))
+	ax1.add_patch( patches.Rectangle((threetube.L1, -0.5* threetube.A2), threetube.L2, threetube.A2, hatch='/', fill=False))
+	ax1.add_patch( patches.Rectangle((threetube.L1 + threetube.L2, -0.5* threetube.A3), threetube.L3, threetube.A3, hatch='/', fill=False))
+	ax1.set_xlim([0, 25])
+	ax1.set_ylim([-5, 5])
+
 if __name__ == '__main__':
 	
 	# Length & Area value, from problems 3.8 in "Digital Processing of Speech Signals" by L.R.Rabiner and R.W.Schafer
@@ -52,27 +61,19 @@ if __name__ == '__main__':
 	A1_a=1.0    # set list of 1st tube's area by unit is [cm^2]
 	L2_a=8.0    # set list of 2nd tube's length by unit is [cm]
 	A2_a=7.0    # set list of 2nd tube's area by unit is [cm^2]
-	# /ae/
-	L1_ae=4.0    # set list of 1st tube's length by unit is [cm]
-	A1_ae=1.0    # set list of 1st tube's area by unit is [cm^2]
-	L2_ae=13.0   # set list of 2nd tube's length by unit is [cm]
-	A2_ae=8.0    # set list of 2nd tube's area by unit is [cm^2]
-	# /i/
-	L1_i=9.0    # set list of 1st tube's length by unit is [cm]
-	A1_i=8.0    # set list of 1st tube's area by unit is [cm^2]
-	L2_i=6.0    # set list of 2nd tube's length by unit is [cm]
-	A2_i=1.0    # set list of 2nd tube's area by unit is [cm^2]
+
 	# /u/
 	L1_u=10.0   # set list of 1st tube's length by unit is [cm]
 	A1_u=7.0    # set list of 1st tube's area by unit is [cm^2]
 	L2_u=7.0    # set list of 2nd tube's length by unit is [cm]
 	A2_u=3.0    # set list of 2nd tube's area by unit is [cm^2]
 	
+	# /o/ extend factor to /a/ connecting as /u/
+	L3_o= L2_a * (L2_u / L1_u)     # set list of 3rd tube's length by unit is [cm]
+	A3_o= A2_a * (A2_u / A1_u)     # set list of 3rd tube's area by unit is [cm^2]
+	
 	# insatnce
-	twotube_a  =  Class_TwoTube(L1_a,L2_a,A1_a,A2_a)
-	twotube_ae =  Class_TwoTube(L1_ae,L2_ae,A1_ae,A2_ae)
-	twotube_i  =  Class_TwoTube(L1_i,L2_i,A1_i,A2_i)
-	twotube_u  =  Class_TwoTube(L1_u,L2_u,A1_u,A2_u)
+	threetube_o  =  Class_ThreeTube(L3_o,A3_o)
 	
 	glo=Class_Glottal()   # instance as glottal voice source
 	hpf=Class_HPF()       # instance for mouth radiation effect
@@ -80,30 +81,15 @@ if __name__ == '__main__':
 	# draw
 	fig = plt.figure()
 	
-	# /a/
-	plt.subplot(4,2,1)
-	plot_freq_res(twotube_a, '/a/', glo, hpf)
-	plt.subplot(4,2,2)
-	yout_a=plot_waveform(twotube_a, '/a/', glo, hpf)
-	save_wav(yout_a, 'yout_a.wav')  # save generated waveform as a wav file
-	# /ae/
-	plt.subplot(4,2,3)
-	plot_freq_res(twotube_ae, '/ae/', glo, hpf)
-	plt.subplot(4,2,4)
-	yout_ae=plot_waveform(twotube_ae, '/ae/', glo, hpf)
-	save_wav(yout_ae, 'yout_ae.wav')  # save generated waveform as a wav file
-	# /i/
-	plt.subplot(4,2,5)
-	plot_freq_res(twotube_i, '/i/', glo, hpf)
-	plt.subplot(4,2,6)
-	yout_i=plot_waveform(twotube_i, '/i/', glo, hpf)
-	save_wav(yout_i, 'yout_i.wav')  # save generated waveform as a wav file
-	# /u/
-	plt.subplot(4,2,7)
-	plot_freq_res(twotube_u, '/u/', glo, hpf)
-	plt.subplot(4,2,8)
-	yout_u=plot_waveform(twotube_u, '/u/', glo, hpf)
-	save_wav(yout_u, 'yout_u.wav')  # save generated waveform as a wav file
+	# /o/
+	plt.subplot(2,2,1)
+	plot_freq_res(threetube_o, '/o/', glo, hpf)
+	plt.subplot(2,2,2)
+	yout_o=plot_waveform(threetube_o, '/o/', glo, hpf)
+	save_wav(yout_o, 'yout_o.wav')  # save generated waveform as a wav file
+	ax1=fig.add_subplot(2,2,4)
+	add_draw_patch(ax1, threetube_o) # draw cross-sectional view (area)
+	
 	#
 	fig.tight_layout()
 	plt.show()
