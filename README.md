@@ -1,6 +1,6 @@
 # vocal tract tube model   
    
-a very simple model vocal tract, few tube model. generate vowel sound by it.  
+a very simple vocal tract model, few tube model. generate vowel sound by it.  
 A python, draw frequency response and cross-sectional view (area) of a very simple vocal tract model, two tube model and three tube model.  
   
 [github repository](https://github.com/shun60s/Vocal-Tube-Model)  
