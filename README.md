@@ -11,7 +11,7 @@ draw two tube model frequency response and cross-sectional view (area)
 ```
 python main1.py
 ```
-![figure1](figures/freq_resp_vocal_two_tube_model.png)  
+![figure1](docs/freq_resp_vocal_two_tube_model.png)  
 
   
 
@@ -20,7 +20,7 @@ save generated waveform as a wav file
 ```
 python main2.py
 ```
-![figure2](figures/freq_resp_vocal_two_tube_model_with_source_mouth_effect.png)  
+![figure2](docs/freq_resp_vocal_two_tube_model_with_source_mouth_effect.png)  
 
   
 
@@ -29,7 +29,7 @@ save generated waveform as a wav file
 ```
 python main3.py
 ```
-![figure3](figures/freq_resp_vocal_three_tube_model_with_source_mouth_effect.png)  
+![figure3](docs/freq_resp_vocal_three_tube_model_with_source_mouth_effect.png)  
 
   
 
@@ -37,7 +37,7 @@ draw waveform of glottal voice source
 ```
 python glottal.py
 ```
-![figure4](figures/glottal_waveform.png)  
+![figure4](docs/glottal_waveform.png)  
 
   
 
@@ -45,7 +45,7 @@ draw frequency response of HPF for simulate mouth radiation
 ```
 python HPF.py
 ```
-![figure5](figures/freq_resp_HPF.png)  
+![figure5](docs/freq_resp_HPF.png)  
 
 ## Genarated sample  
 
