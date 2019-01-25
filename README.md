@@ -47,7 +47,7 @@ python HPF.py
 ```
 ![figure5](docs/freq_resp_HPF.png)  
 
-## Genarated sample  
+## Generated sample  
 
 There are sample wav files of generated waveform in the generated_waveform folder  
 
