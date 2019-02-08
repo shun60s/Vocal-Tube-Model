@@ -7,7 +7,7 @@ A python, draw frequency response and cross-sectional view (area) of a very simp
 
 ## content    
 
-draw two tube model frequency response and cross-sectional view (area), that ｃorresponds to vocal tract  
+draw two tube model frequency response and cross-sectional view (area), that corresponds to vocal tract  
 ```
 python main1.py
 ```
