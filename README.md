@@ -58,7 +58,6 @@ See [Explain-E.pdf](docs/Explain-E.pdf) / [Explain-J.pdf](docs/Explain-J.pdf) in
   
 ## Related link      
 
-- [estimation two tube model parameters from formant](https://github.com/shun60s/Formant2TubeModel)  
 - [Speech Waveform Generation by SCILAB](https://wsignal.sakura.ne.jp/onsei2007/scilab456e.html)  
 
 ## License    
