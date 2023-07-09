@@ -5,7 +5,7 @@ A python, draw frequency response and cross-sectional view (area) of a very simp
   
 [github repository](https://github.com/shun60s/Vocal-Tube-Model)  
 
-There is new version upto five tube model, [Vocal-Tube-Model2](https://github.com/shun60s/Vocal-Tube-Model2/), and [other related](https://github.com/shun60s/vocal-tract-tube-model-list/) in github repository.  
+There is new version upto five tube model [Vocal-Tube-Model2](https://github.com/shun60s/Vocal-Tube-Model2/), and [other related repositories](https://github.com/shun60s/vocal-tract-tube-model-list/).  
 
 ## content    
 
